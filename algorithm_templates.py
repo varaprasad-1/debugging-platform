@@ -291,4 +291,239 @@ do{
 }while(i<n);
 """,
 
+# SORTING ALGORITHMS
+
+"""
+for(int i=0;i<n-1;i++){
+    for(int j=i+1;j<n;j++){
+        if(arr[i]>arr[j]){
+            int temp=arr[i];
+            arr[i]=arr[j];
+            arr[j]=temp;
+        }
+    }
+}
+""",
+
+"""
+for(int i=0;i<n-1;i++){
+    for(int j=0;j<n-i-1;j++){
+        if(arr[j]>arr[j+1]){
+            int temp=arr[j];
+            arr[j]=arr[j+1];
+            arr[j+1]=temp;
+        }
+    }
+}
+""",
+
+# SECOND LARGEST ELEMENT
+
+"""
+int first=arr[0],second=arr[1];
+for(int i=2;i<n;i++){
+    if(arr[i]>first){
+        second=first;
+        first=arr[i];
+    }
+}
+printf("%d",second);
+""",
+
+# COUNT POSITIVE NUMBERS
+
+"""
+int count=0;
+for(int i=0;i<n;i++){
+    if(arr[i]>0)
+        count++;
+}
+printf("%d",count);
+""",
+
+# COUNT NEGATIVE NUMBERS
+
+"""
+int count=0;
+for(int i=0;i<n;i++){
+    if(arr[i]<0)
+        count++;
+}
+printf("%d",count);
+""",
+
+# SUM OF DIAGONAL MATRIX
+
+"""
+int sum=0;
+for(int i=0;i<n;i++){
+    sum+=mat[i][i];
+}
+printf("%d",sum);
+""",
+
+# PRINT MATRIX TRANSPOSE
+
+"""
+for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+        printf("%d",mat[j][i]);
+    }
+}
+""",
+
+# BINARY SEARCH STEP
+
+"""
+int low=0,high=n-1;
+while(low<=high){
+    int mid=(low+high)/2;
+    if(arr[mid]==target)
+        printf("Found");
+    else if(arr[mid]<target)
+        low=mid+1;
+    else
+        high=mid-1;
+}
+""",
+
+# GCD OF TWO NUMBERS
+
+"""
+while(a!=b){
+    if(a>b)
+        a=a-b;
+    else
+        b=b-a;
+}
+printf("%d",a);
+""",
+
+# LCM OF TWO NUMBERS
+
+"""
+int max=(a>b)?a:b;
+while(1){
+    if(max%a==0 && max%b==0){
+        printf("%d",max);
+        break;
+    }
+    max++;
+}
+""",
+
+# CHECK PALINDROME STRING
+
+"""
+int flag=1;
+for(int i=0;i<len/2;i++){
+    if(str[i]!=str[len-i-1])
+        flag=0;
+}
+printf("%d",flag);
+""",
+
+# COUNT VOWELS
+
+"""
+int count=0;
+for(int i=0;i<len;i++){
+    if(str[i]=='a'||str[i]=='e'||str[i]=='i'||str[i]=='o'||str[i]=='u')
+        count++;
+}
+printf("%d",count);
+""",
+
+# PRINT MULTIPLICATION TABLE
+
+"""
+for(int i=1;i<=10;i++){
+    printf("%d",n*i);
+}
+""",
+
+# SUM OF DIGITS
+
+"""
+int sum=0;
+while(n>0){
+    sum+=n%10;
+    n=n/10;
+}
+printf("%d",sum);
+""",
+
+# REVERSE NUMBER
+
+"""
+int rev=0;
+while(n>0){
+    rev=rev*10+n%10;
+    n=n/10;
+}
+printf("%d",rev);
+""",
+
+# COUNT DIGITS
+
+"""
+int count=0;
+while(n>0){
+    n=n/10;
+    count++;
+}
+printf("%d",count);
+""",
+
+# POWER OF NUMBER
+
+"""
+int result=1;
+for(int i=0;i<b;i++){
+    result*=a;
+}
+printf("%d",result);
+""",
+
+# MATRIX ADDITION
+
+"""
+for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+        c[i][j]=a[i][j]+b[i][j];
+    }
+}
+""",
+
+# MATRIX SUBTRACTION
+
+"""
+for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+        c[i][j]=a[i][j]-b[i][j];
+    }
+}
+""",
+
+# COUNT ELEMENT GREATER THAN X
+
+"""
+int count=0;
+for(int i=0;i<n;i++){
+    if(arr[i]>x)
+        count++;
+}
+printf("%d",count);
+""",
+
+# FIND SMALLEST POSITIVE NUMBER
+
+"""
+int min=arr[0];
+for(int i=1;i<n;i++){
+    if(arr[i]>0 && arr[i]<min)
+        min=arr[i];
+}
+printf("%d",min);
+""",
 ]
