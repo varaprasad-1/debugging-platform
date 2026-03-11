@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Debugging Challenge</title>
+
+<style>
+
+body{
+background:#0f172a;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+
+textarea{
+width:80%;
+height:320px;
+background:#020617;
+color:#22c55e;
+font-family:monospace;
+font-size:16px;
+padding:15px;
+}
+
+button{
+padding:10px 20px;
+font-size:18px;
+background:#22c55e;
+border:none;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Debug the Code</h1>
+
+{% if message %}
+<p>{{message}}</p>
+{% endif %}
+
+<form action="/submit" method="POST">
+
+<textarea name="code">{{code}}</textarea>
+
+<br><br>
+
+<button type="submit">Submit Fix</button>
+
+</form>
+
+</body>
+
+</html>
