@@ -1,98 +1,44 @@
 import random
+import re
 
-BUG_PATTERNS = [
+# possible variable replacements
+VAR_NAMES = ["sum", "total", "result", "value"]
+ARRAY_NAMES = ["arr", "data", "nums", "values"]
+INDEX_NAMES = ["i", "j", "k"]
 
-# LOOP BOUNDARY ERRORS
-("i<n", "i<=n"),
-("i<n", "i<n-1"),
-("i<=n", "i<n"),
-("i>=0", "i>0"),
-("i>0", "i>=0"),
-
-# COMPARISON ERRORS
-("==", "="),
-(">", "<"),
-("<", ">"),
-(">=", "<="),
-("<=", ">="),
-
-# ARRAY INDEX ERRORS
-("arr[i]", "arr[n]"),
-("arr[i]", "arr[i+1]"),
-("arr[i]", "arr[i-1]"),
-
-# VARIABLE MISUSE
-("sum", "count"),
-("count", "sum"),
-("max", "min"),
-("min", "max"),
-
-# INITIALIZATION ERRORS
-("sum=0", "sum=1"),
-("count=0", "count=1"),
-("product=1", "product=0"),
-("flag=1", "flag=0"),
-("int i=0", "int i=1"),
-
-# ARITHMETIC OPERATOR ERRORS
-("+=", "-="),
-("+=", "*="),
-("*=", "+="),
-("-=", "+="),
-
-# CONDITION ERRORS
-("%2==0", "%2=0"),
-("%2==0", "%2!=0"),
-("n%i==0", "n%i=0"),
-
-# LOOP UPDATE ERRORS
-("i++", "i--"),
-("i--", "i++"),
-("count++", "count--"),
-("count--", "count++"),
-
-# MISSING UPDATE
-("i++", ""),
-("count++", ""),
-
-# CONSTANT ERRORS
-("10", "9"),
-("10", "11"),
-("1", "0"),
-("0", "1"),
-
-# MATRIX INDEX ERRORS
-("mat[i][j]", "mat[j][i]"),
-("mat[i][i]", "mat[i][j]"),
-
-# STRING INDEX ERRORS
-("str[i]", "str[len]"),
-("str[i]", "str[i+1]"),
-
-# SEARCH LOGIC ERRORS
-("pos=i", "pos=-1"),
-("found=1", "found=0"),
-
-# LOOP DIRECTION BUG
-("i++", "i+=2"),
-("i--", "i-=2"),
-
-]
+# constants that may appear in templates
+CONSTANTS = [2, 3, 4, 5, 7, 10]
 
 
-def inject_bug(code):
+def replace_word(code, old, new):
+    return re.sub(r"\b" + old + r"\b", new, code)
 
-    valid = []
 
-    for correct, bug in BUG_PATTERNS:
-        if correct in code:
-            valid.append((correct, bug))
+def mutate_variables(code):
 
-    if not valid:
-        return None, None
+    code = replace_word(code, "arr", random.choice(ARRAY_NAMES))
+    code = replace_word(code, "sum", random.choice(VAR_NAMES))
+    code = replace_word(code, "count", random.choice(VAR_NAMES))
+    code = replace_word(code, "i", random.choice(INDEX_NAMES))
 
-    correct, bug = random.choice(valid)
+    return code
 
-    buggy_code = code.replace(correct, bug, 1)
 
-    return buggy_code, correct
+def mutate_constants(code):
+
+    for c in CONSTANTS:
+        code = re.sub(
+            r"\b" + str(c) + r"\b",
+            str(random.randint(2, 15)),
+            code
+        )
+
+    return code
+
+
+def mutate_code(code):
+
+    code = mutate_variables(code)
+    code = mutate_constants(code)
+
+    return code
