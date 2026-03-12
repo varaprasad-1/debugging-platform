@@ -3,16 +3,24 @@ from algorithm_templates import TEMPLATES
 from bug_injector import inject_bug
 from mutator import mutate_code
 
+
 def generate_bug():
+
     while True:
+
         template = random.choice(TEMPLATES)
-        description = template["description"]
-        code = template["code"]
-        
-        # Mutate the original code template
+
+        # simple description generator
+        description = "Debug the following program."
+
+        code = template
+
+        # mutate variables to create variety
         code = mutate_code(code)
-        
-        # Inject a bug and return the result if successful
+
+        # inject bug
         buggy_code, fix = inject_bug(code)
+
+        # ensure valid bug was inserted
         if buggy_code:
             return description, buggy_code, fix
