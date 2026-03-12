@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
 <title>Debugging Challenge</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
@@ -11,25 +13,57 @@ body{
 background:#0f172a;
 color:white;
 font-family:Arial;
+margin:0;
+}
+
+header{
+background:#020617;
+padding:15px;
+font-size:24px;
 text-align:center;
 }
 
-textarea{
-width:80%;
-height:320px;
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.editor{
+width:100%;
+height:400px;
 background:#020617;
 color:#22c55e;
 font-family:monospace;
 font-size:16px;
 padding:15px;
+border-radius:6px;
 }
 
 button{
-padding:10px 20px;
-font-size:18px;
-background:#22c55e;
+padding:10px 18px;
+margin:10px;
 border:none;
+border-radius:6px;
 cursor:pointer;
+font-size:16px;
+}
+
+.submit{
+background:#22c55e;
+}
+
+.reset{
+background:#f59e0b;
+}
+
+.skip{
+background:#ef4444;
+}
+
+.message{
+margin-top:10px;
+font-size:18px;
 }
 
 </style>
@@ -38,22 +72,35 @@ cursor:pointer;
 
 <body>
 
-<h1>Debug the Code</h1>
+<header>Debugging Challenge Platform</header>
+
+<div class="container">
+
+<p>{{description}}</p>
 
 {% if message %}
-<p>{{message}}</p>
+<div class="message">{{message}}</div>
 {% endif %}
 
 <form action="/submit" method="POST">
 
-<textarea name="code">{{code}}</textarea>
+<textarea name="code" class="editor">{{code}}</textarea>
 
-<br><br>
+<br>
 
-<button type="submit">Submit Fix</button>
+<button class="submit">Submit Fix</button>
 
 </form>
 
-</body>
+<form action="/reset" method="POST" style="display:inline;">
+<button class="reset">Reset</button>
+</form>
 
+<form action="/skip" method="POST" style="display:inline;">
+<button class="skip">Skip</button>
+</form>
+
+</div>
+
+</body>
 </html>
