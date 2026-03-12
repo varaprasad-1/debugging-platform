@@ -5,6 +5,7 @@ import uuid
 app = Flask(__name__)
 app.secret_key = "debug-platform-secret"
 
+
 @app.route("/")
 def home():
 
@@ -13,6 +14,7 @@ def home():
 
     if "current_code" not in session:
         description, code, fix = generate_bug()
+
         session["description"] = description
         session["current_code"] = code
         session["original_code"] = code
@@ -44,6 +46,8 @@ def submit():
     else:
 
         message = "Bug not fixed correctly. Try again."
+
+        # keep user edits instead of resetting
         session["current_code"] = user_code
 
     return render_template(
@@ -90,4 +94,4 @@ def reset():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run()
