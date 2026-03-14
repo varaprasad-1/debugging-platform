@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, session
 from generator import generate_bug
 import uuid
@@ -93,6 +94,6 @@ def skip():
         message=message
     )
 
-
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
