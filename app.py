@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, request, session
 from generator import generate_bug
 import uuid
+import random
 
 app = Flask(__name__)
 app.secret_key = "debug-platform-secret"
@@ -37,7 +38,8 @@ def submit():
 
     if session["correct_fix"] in user_code:
 
-        message = random.choice(["Correct! New challenge generated.", "Bug fixed Successfully, Solve The Next Challange" , "Well done! Let's Try a New One" , "Good job! Try the next challange" , " Bug fixed successfully. Next challange ready " ])
+        mes = ["Correct! New challenge generated.", "Bug fixed Successfully, Solve The Next Challange" , "Well done! Let's Try a New One" , "Good job! Try the next challange" , " Bug fixed successfully. Next challange ready " ]
+        message = random.choice(mes)
 
         description, code, fix, difficulty = generate_bug()
 
