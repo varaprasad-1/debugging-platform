@@ -37,15 +37,16 @@ def submit():
 
     if session["correct_fix"] in user_code:
 
-        message = "Correct! New challenge generated."
+        message = random.choice(["Correct! New challenge generated.", "Bug fixed Successfully, Solve The Next Challange" , "Well done! Let's Try a New One" , "Good job! Try the next challange" , " Bug fixed successfully. Next challange ready " ])
 
-        description, code, fix = generate_bug()
+        description, code, fix, difficulty = generate_bug()
 
+        session["challenge_number"] += 1
         session["description"] = description
         session["current_code"] = code
         session["original_code"] = code
         session["correct_fix"] = fix
-
+        session["difficulty"] = difficulty
     else:
 
         message = "Bug not fixed correctly. Try again."
