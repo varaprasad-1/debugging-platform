@@ -10,10 +10,18 @@
 <style>
 
 body{
-background:#0f172a;
-color:white;
-font-family:Segoe UI;
+background: linear-gradient(-45deg,#020617,#0f172a,#020617);
+background-size:400% 400%;
+animation:gradientMove 10s ease infinite;
+color:#e5e7eb;
+font-family:'Segoe UI',sans-serif;
 margin:0;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 header{
@@ -23,6 +31,7 @@ font-size:28px;
 text-align:center;
 font-weight:bold;
 border-bottom:1px solid #1e293b;
+letter-spacing:1px;
 }
 
 .container{
@@ -30,9 +39,21 @@ max-width:1000px;
 margin:auto;
 padding:30px;
 background:#020617;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.5);
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
 margin-top:30px;
+animation:fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .description{
@@ -43,14 +64,32 @@ margin-bottom:20px;
 }
 
 .message{
-color:#facc15;
-margin-bottom:10px;
+color:#22c55e;
+margin-bottom:15px;
+font-weight:600;
+animation:slideIn 0.4s ease;
+}
+
+@keyframes slideIn{
+from{
+opacity:0;
+transform:translateY(-8px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 #editor{
 height:450px;
 border:1px solid #334155;
 border-radius:8px;
+transition:box-shadow 0.3s ease;
+}
+
+#editor:focus-within{
+box-shadow:0 0 15px rgba(59,130,246,0.5);
 }
 
 .button-bar{
@@ -58,22 +97,54 @@ display:flex;
 justify-content:center;
 gap:15px;
 margin-top:20px;
+flex-wrap:wrap;
 }
 
 button{
-padding:10px 18px;
+padding:10px 20px;
 border:none;
-border-radius:6px;
+border-radius:8px;
 font-size:16px;
 cursor:pointer;
+font-weight:600;
+transition:all 0.2s ease;
 }
 
-.submit{background:#22c55e;color:white;}
-.reset{background:#f59e0b;color:white;}
-.skip{background:#ef4444;color:white;}
+button:active{
+transform:scale(0.96);
+}
 
-button:hover{
-transform:scale(1.05);
+.submit{
+background:#22c55e;
+color:white;
+}
+
+.reset{
+background:#f59e0b;
+color:white;
+}
+
+.skip{
+background:#ef4444;
+color:white;
+}
+
+.submit:hover{
+background:#16a34a;
+transform:translateY(-2px);
+box-shadow:0 6px 15px rgba(0,0,0,0.4);
+}
+
+.reset:hover{
+background:#d97706;
+transform:translateY(-2px);
+box-shadow:0 6px 15px rgba(0,0,0,0.4);
+}
+
+.skip:hover{
+background:#dc2626;
+transform:translateY(-2px);
+box-shadow:0 6px 15px rgba(0,0,0,0.4);
 }
 
 .footer{
@@ -133,7 +204,7 @@ Debugging Challenge Platform
 </div>
 
 <footer class="footer">
-Created by Varaprasad Kotyada
+Created by Varaprasad
 </footer>
 
 
@@ -153,10 +224,12 @@ var editor = monaco.editor.create(document.getElementById("editor"),{
 
 value:`{{ code | safe }}`,
 language:"c",
-theme:"vs-light",
+theme:"vs-dark",
 fontSize:16,
+fontFamily:"Fira Code, monospace",
 automaticLayout:true,
-minimap:{enabled:false}
+minimap:{enabled:false},
+cursorSmoothCaretAnimation:true
 
 });
 
