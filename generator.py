@@ -1,16 +1,9 @@
 import random
 from algorithm_templates import TEMPLATES
-from bug_injector import inject_bug
 from mutator import mutate_code
+from bug_injector import inject_bug
 
 generated_codes = set()
-
-descriptions = [
-"Fix the bug in the following program.",
-"Debug the following algorithm.",
-"Identify and correct the error.",
-"Correct the logical mistake in the code."
-]
 
 
 def generate_bug():
@@ -19,16 +12,14 @@ def generate_bug():
 
         template = random.choice(TEMPLATES)
 
-        code = template
+        mutated = mutate_code(template)
 
-        code = mutate_code(code)
-
-        buggy_code, fix = inject_bug(code)
+        buggy_code, fix = inject_bug(mutated)
 
         if buggy_code and buggy_code not in generated_codes:
 
             generated_codes.add(buggy_code)
 
-            description = random.choice(descriptions)
+            description = "Fix the bug in the following program."
 
             return description, buggy_code, fix
