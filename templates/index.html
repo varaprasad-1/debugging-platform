@@ -1,75 +1,87 @@
 <!DOCTYPE html>
 <html>
 
-<head >
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+
 <title>Debugging Challenge Platform</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
 body{
 background:#0f172a;
 color:white;
-font-family:Segoe UI, Arial;
+font-family:Segoe UI;
 margin:0;
 }
 
 header{
 background:#020617;
-padding:16px;
-font-size:26px;
+padding:20px;
+font-size:28px;
 text-align:center;
 font-weight:bold;
-letter-spacing:1px;
+border-bottom:1px solid #1e293b;
 }
 
 .container{
-max-width:900px;
+max-width:1000px;
 margin:auto;
-padding:20px;
+padding:30px;
+background:#020617;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+margin-top:30px;
 }
 
 .description{
 font-size:20px;
 font-weight:600;
-margin-bottom:15px;
 color:#38bdf8;
+margin-bottom:20px;
 }
 
 .message{
-margin-top:15px;
-font-size:18px;
 color:#facc15;
+margin-bottom:10px;
 }
 
 #editor{
-height:420px;
-border-radius:6px;
-border:1px solid #1e293b;
+height:450px;
+border:1px solid #334155;
+border-radius:8px;
+}
+
+.button-bar{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-top:20px;
 }
 
 button{
 padding:10px 18px;
-margin:10px;
 border:none;
 border-radius:6px;
-cursor:pointer;
 font-size:16px;
+cursor:pointer;
 }
 
-.submit{
-background:#22c55e;
-color:white;
+.submit{background:#22c55e;color:white;}
+.reset{background:#f59e0b;color:white;}
+.skip{background:#ef4444;color:white;}
+
+button:hover{
+transform:scale(1.05);
 }
 
-.reset{
-background:#f59e0b;
-color:white;
-}
-
-.skip{
-background:#ef4444;
-color:white;
+.footer{
+text-align:center;
+padding:15px;
+margin-top:20px;
+color:#94a3b8;
+font-size:14px;
 }
 
 </style>
@@ -79,7 +91,10 @@ color:white;
 
 <body>
 
-<header>Debugging Challenge Platform</header>
+<header>
+Debugging Challenge Platform
+</header>
+
 
 <div class="container">
 
@@ -99,21 +114,27 @@ color:white;
 
 <input type="hidden" name="code" id="code_input">
 
-<br>
+<div class="button-bar">
 
 <button class="submit">Submit Fix</button>
 
 </form>
 
-<form action="/reset" method="POST" style="display:inline;">
+<form action="/reset" method="POST">
 <button class="reset">Reset</button>
 </form>
 
-<form action="/skip" method="POST" style="display:inline;">
+<form action="/skip" method="POST">
 <button class="skip">Skip</button>
 </form>
 
 </div>
+
+</div>
+
+<footer class="footer">
+Created by Varaprasad
+</footer>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
