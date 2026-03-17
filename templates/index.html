@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Debugging Challenge Platform</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style>
+
+body{
+background: linear-gradient(-45deg,#020617,#0f172a,#020617);
+background-size:400% 400%;
+animation:gradientMove 10s ease infinite;
+color:#e5e7eb;
+font-family:'Segoe UI',sans-serif;
+margin:0;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+header{
+background:#020617;
+padding:20px;
+font-size:28px;
+text-align:center;
+font-weight:bold;
+border-bottom:1px solid #1e293b;
+letter-spacing:1px;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:30px;
+background:#020617;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
+margin-top:30px;
+animation:fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.challenge-info{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+font-size:14px;
+}
+
+.challenge-id{
+color:#94a3b8;
+}
+
+.difficulty{
+padding:4px 10px;
+border-radius:6px;
+font-weight:600;
+}
+
+.Easy{
+background:#16a34a;
+color:white;
+}
+
+.Medium{
+background:#f59e0b;
+color:white;
+}
+
+.Hard{
+background:#ef4444;
+color:white;
+}
+
+.progress{
+margin-bottom:15px;
+font-size:14px;
+color:#94a3b8;
+}
+
+.description{
+font-size:20px;
+font-weight:600;
+color:#38bdf8;
+margin-bottom:20px;
+}
+
+.message{
+color:#22c55e;
+margin-bottom:15px;
+font-weight:600;
+}
+
+#editor{
+height:320px;
+border:1px solid #334155;
+border-radius:8px;
+}
+
+.button-bar{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-top:20px;
+flex-wrap:wrap;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+font-weight:600;
+transition:all 0.2s ease;
+}
+
+button:active{
+transform:scale(0.96);
+}
+
+.submit{
+background:#22c55e;
+color:white;
+}
+
+.reset{
+background:#f59e0b;
+color:white;
+}
+
+.skip{
+background:#ef4444;
+color:white;
+}
+
+.submit:hover{
+background:#16a34a;
+}
+
+.reset:hover{
+background:#d97706;
+}
+
+.skip:hover{
+background:#dc2626;
+}
+
+.footer{
+text-align:center;
+padding:15px;
+margin-top:20px;
+color:#94a3b8;
+font-size:16px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+Debugging Challenge Platform
+</header>
+
+<div class="container">
+
+<div class="challenge-info">
+<span class="challenge-id">Challenge #{{challenge_number}}</span>
+<span class="difficulty {{difficulty}}">{{difficulty}}</span>
+</div>
+
+<div class="progress">
+Solved: {{solved_count}} challenges
+</div>
+
+<div class="description">
+{{description}}
+</div>
+
+{% if message %}
+<div class="message">
+{{message}}
+</div>
+{% endif %}
+
+<form action="/reset" method="POST">
+<button class="reset">Reset</button>
+</form>
+
+<form action="/submit" method="POST">
+
+<div id="editor"></div>
+
+<input type="hidden" name="code" id="code_input">
+
+<div class="button-bar">
+<button type="submit" class="submit">Submit Fix</button>
+</div>
+
+</form>
+
+<div class="button-bar">
+
+<form action="/skip" method="POST">
+<button class="skip">Skip</button>
+</form>
+
+</div>
+
+</div>
+
+<footer class="footer">
+Created by Varaprasad Kotyada
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
+
+<script>
+
+require.config({
+paths:{
+vs:"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs"
+}
+});
+
+require(["vs/editor/editor.main"], function () {
+
+var editor = monaco.editor.create(document.getElementById("editor"),{
+
+value:`{{ code | safe }}`,
+language:"c",
+theme:"vs-dark",
+fontSize:15,
+fontFamily:"Fira Code, monospace",
+automaticLayout:true,
+minimap:{enabled:false},
+scrollBeyondLastLine:false
+
+});
+
+document.querySelector('form[action="/submit"]').addEventListener("submit",function(){
+
+document.getElementById("code_input").value = editor.getValue();
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
