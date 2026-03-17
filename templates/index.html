@@ -205,6 +205,14 @@ Solved: {{solved_count}} challenges
 </div>
 {% endif %}
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="message">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
 <form action="/reset" method="POST">
 <button class="reset">Reset</button>
 </form>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, flash
 from generator import generate_bug
 import uuid
 import random
@@ -78,14 +78,8 @@ def submit():
         # keep user edits
         session["current_code"] = user_code
 
-    return render_template(
-        "index.html",
-        code=session["current_code"],
-        description=session["description"],
-        challenge_number=session["challenge_number"],
-        solved_count=session["solved_count"],
-        message=message
-    )
+    flash(message)
+    return redirect('/')
 
 
 # RESET
@@ -93,15 +87,8 @@ def submit():
 def reset():
     
     session["current_code"] = session["original_code"]
-
-    return render_template(
-        "index.html",
-        code=session["current_code"],
-        description=session["description"],
-        challenge_number=session["challenge_number"],
-        solved_count=session["solved_count"],
-        message="Code reset."
-    )
+    flash("Code reset.")
+    return redirect('/')
 
 
 # SKIP
@@ -117,14 +104,8 @@ def skip():
 
     session["challenge_number"] += 1
 
-    return render_template(
-        "index.html",
-        code=session["current_code"],
-        description=session["description"],
-        challenge_number=session["challenge_number"],
-        solved_count=session["solved_count"],
-        message="Challenge skipped."
-    )
+    flash("Challenge skipped.")
+    return redirect('/')
 
 
 # FRESH SESSION
