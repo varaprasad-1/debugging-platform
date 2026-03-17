@@ -3,8 +3,6 @@ from algorithm_templates import TEMPLATES
 from mutator import mutate_code
 from bug_injector import inject_bug
 
-generated_codes = set()
-
 def generate_bug():
 
     while True:
@@ -21,12 +19,6 @@ def generate_bug():
 
         if buggy_code == mutated:
             continue
-
-        # avoid duplicates
-        if buggy_code in generated_codes:
-            continue
-
-        generated_codes.add(buggy_code)
 
         description = "Fix the bug in the following program."
 
