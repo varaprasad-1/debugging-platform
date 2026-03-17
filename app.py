@@ -1,22 +1,17 @@
 from flask import Flask, render_template, request, session
-from flask_session import Session
 from generator import generate_bug
 import uuid
 import random
-import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SESSION_PERMANENT'] = True
-app.config['PERMANENT_SESSION_LIFETIME'] = 86400 * 7  # 7 days
-Session(app)
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 
 # HOME
 @app.route("/")
 def home():
-    session.permanent = True  # Make session persistent
     
     # unique user
     if "user_id" not in session:
@@ -51,7 +46,6 @@ def home():
 # SUBMIT
 @app.route("/submit", methods=["POST"])
 def submit():
-    session.permanent = True  # Make session persistent
     
     user_code = request.form["code"]
 
@@ -96,7 +90,6 @@ def submit():
 # RESET
 @app.route("/reset", methods=["POST"])
 def reset():
-    session.permanent = True  # Make session persistent
     
     session["current_code"] = session["original_code"]
 
@@ -113,7 +106,6 @@ def reset():
 # SKIP
 @app.route("/skip", methods=["POST"])
 def skip():
-    session.permanent = True  # Make session persistent
     
     description, code, fix = generate_bug()
 
