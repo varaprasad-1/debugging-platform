@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect
 from generator import generate_bug
 import uuid
 import random
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
@@ -130,14 +131,7 @@ def skip():
 @app.route("/fresh", methods=["POST"])
 def fresh_session():
     session.clear()
-    return render_template(
-        "index.html",
-        code="",
-        description="",
-        challenge_number=1,
-        solved_count=0,
-        message="Fresh session started!"
-    )
+    return redirect('/')
 
 
 if __name__ == "__main__":
