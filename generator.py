@@ -5,8 +5,6 @@ from bug_injector import inject_bug
 
 generated_codes = set()
 
-DIFFICULTY_LEVELS = ["Easy", "Medium", "Hard"]
-
 def generate_bug():
 
     while True:
@@ -17,9 +15,15 @@ def generate_bug():
 
         buggy_code, fix = inject_bug(mutated)
 
-        if buggy_code is None:
+        # ❌ reject if no bug
+        if not buggy_code or not fix:
             continue
 
+        # ❌ reject if bug didn't change code
+        if buggy_code == mutated:
+            continue
+
+        # ❌ reject duplicates
         if buggy_code in generated_codes:
             continue
 
@@ -27,6 +31,6 @@ def generate_bug():
 
         description = "Fix the bug in the following program."
 
-        difficulty = random.choice(DIFFICULTY_LEVELS)
+        difficulty = random.choice(["Easy","Medium","Hard"])
 
         return description, buggy_code, fix, difficulty
