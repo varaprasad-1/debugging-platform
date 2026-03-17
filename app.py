@@ -126,5 +126,19 @@ def skip():
     )
 
 
+# FRESH SESSION
+@app.route("/fresh", methods=["POST"])
+def fresh_session():
+    session.clear()
+    return render_template(
+        "index.html",
+        code="",
+        description="",
+        challenge_number=1,
+        solved_count=0,
+        message="Fresh session started!"
+    )
+
+
 if __name__ == "__main__":
     app.run()
